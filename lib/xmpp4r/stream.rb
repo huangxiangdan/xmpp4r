@@ -102,6 +102,7 @@ module Jabber
 
     def stop
       @parser_thread.kill
+      @parser_thread.join  # <-- Wait for original parser thread to die before continuing
       @parser = nil
     end
 

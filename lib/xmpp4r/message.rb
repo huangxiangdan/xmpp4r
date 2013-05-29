@@ -117,9 +117,9 @@ module Jabber
     # Sets the message's xhtml body
     #
     # b:: [String] xhtml body to set (Note: must be a valid xhtml)
-    def xhtml_body=(b)
+    def xhtml_body=(str)
       begin
-        b = REXML::Document.new("<root>#{b}</root>")
+        b = REXML::Document.new("<root>#{str}</root>")
       rescue REXML::ParseException
         raise ArgumentError, "Body is not a valid xhtml. Have you forgot to close some tag?"
       end
@@ -129,6 +129,7 @@ module Jabber
       if html
         html.replace_element_content('body', b, 'http://www.w3.org/1999/xhtml')
       elsif b.first.first.namespace != nil && b.first.first.namespace != ""
+        el = REXML::Element.new(str)
         add_element(el)
       else
         el = REXML::Element.new('html')

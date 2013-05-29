@@ -129,8 +129,8 @@ module Jabber
       if html
         html.replace_element_content('body', b, 'http://www.w3.org/1999/xhtml')
       elsif b.first.first.namespace != nil && b.first.first.namespace != ""
-        el = REXML::Element.new(str)
-        add_element(el)
+        el = REXML::Document.new(str)
+        add_element(el.root)
       else
         el = REXML::Element.new('html')
         el.add_namespace('http://jabber.org/protocol/xhtml-im')
